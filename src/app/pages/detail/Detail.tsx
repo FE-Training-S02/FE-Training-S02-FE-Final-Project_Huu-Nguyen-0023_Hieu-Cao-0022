@@ -27,18 +27,12 @@ import {
 const Detail = () => {
   const dispatch = useDispatch();
   const { id }: any = useParams();
-  const schema = yup.object().shape({
-    content: yup
-      .string()
-      .max(30, 'Password must not exceed 30 characters')
-      .required('Password is require'),
-  });
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm();
 
   const [post, setPost] = useState<any>();
   const [comments, setComments] = useState<any>([]);
@@ -258,11 +252,6 @@ const Detail = () => {
                   ></input>
                   <button className="btn btn-primary">Comment</button>
                 </form>
-                {errors.content ? (
-                  <p className="error">{errors.content.message}</p>
-                ) : (
-                  ''
-                )}
               </article>
               <ul className="list-user-comment col-8 offset-2 col-lg-12 offset-lg-0">
                 {showComment &&
