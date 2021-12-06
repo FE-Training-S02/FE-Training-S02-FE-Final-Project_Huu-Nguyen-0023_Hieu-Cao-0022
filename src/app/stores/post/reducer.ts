@@ -1,6 +1,7 @@
 import { postConstant } from 'app/shared/constants/postConstant';
 
 const initialState = {
+  error: null,
   infoPost: null,
   urlImage: null,
   quantityFollowing: null,
@@ -31,6 +32,11 @@ const postReducer = (
       return {
         ...state,
         isLoading: action.payload,
+      };
+    case postConstant.ERROR_API:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

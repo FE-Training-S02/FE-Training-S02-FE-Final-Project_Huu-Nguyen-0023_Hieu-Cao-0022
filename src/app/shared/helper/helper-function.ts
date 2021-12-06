@@ -1,3 +1,5 @@
+import { localStorageOption } from "./LocalAction";
+
 export const calculateTimeSince = (date: string) => {
   const seconds = Math.floor((+new Date() - +new Date(date)) / 1000);
 
@@ -36,4 +38,17 @@ export const formatNumber = (number: number) => {
     case number < 1e12:
       return +(number / 1e3).toFixed(1) + 'B';
   }
+};
+
+export const convertFromStringToDate = (responseDate: string) => {
+  const dateComponents = responseDate.replace('Z', '').split('T');
+  const datePieces = dateComponents[0].split('-');
+  const timePieces = dateComponents[1].split(':');
+  return `${datePieces[2]}/${parseInt(datePieces[1])}/${datePieces[0]} ${
+    timePieces[0]
+  }:${timePieces[1]}`;
+};
+
+export const getToken = () => {
+  return localStorage.getItem('USER_TOKEN')
 };

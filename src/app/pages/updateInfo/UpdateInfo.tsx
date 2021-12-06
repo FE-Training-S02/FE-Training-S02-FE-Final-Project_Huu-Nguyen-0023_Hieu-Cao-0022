@@ -23,6 +23,10 @@ const UpdateInfo = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const schema = yup.object().shape({
+    firstName: yup.string().required('First name is required'),
+    lastName: yup.string().required('lastName name is required'),
+    displayName: yup.string().required('displayName name is required'),
+    dob: yup.string().required('dob name is required'),
     picture: yup.mixed().required('You need upload image to update'),
     phone: yup
       .string()
@@ -109,16 +113,24 @@ const UpdateInfo = () => {
           ) : (
             ''
           )}
-          <input
-            placeholder="First name"
-            {...register('firstName')}
-            required
-          ></input>
-          <input
-            placeholder="Last name"
-            {...register('lastName')}
-            required
-          ></input>
+          <label className="label-input">
+            <span>First name : </span>
+            <input placeholder="First name" {...register('firstName')}></input>
+          </label>
+          {errors.firstName ? (
+            <p className="error">{errors.firstName.message}</p>
+          ) : (
+            ''
+          )}
+          <label className="label-input">
+            <span>Last name : </span>
+            <input placeholder="Last name" {...register('lastName')}></input>
+          </label>
+          {errors.lastName ? (
+            <p className="error">{errors.lastName.message}</p>
+          ) : (
+            ''
+          )}
           <Controller
             control={control}
             name="gender"
@@ -127,20 +139,34 @@ const UpdateInfo = () => {
               <SelectGender value={value} onChange={onChange} />
             )}
           />
-          <Controller
-            control={control}
-            name="dob"
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value, name, ref } }) => (
-              <HandleBirthdate value={value} onChange={onChange} />
-            )}
-          />
-          <input
-            placeholder="Display name"
-            {...register('displayName')}
-            required
-          ></input>
-          <input placeholder="Phone" {...register('phone')} required></input>
+          <label className="label-input">
+            <span>Date of birth : </span>
+            <Controller
+              control={control}
+              name="dob"
+              rules={{ required: true }}
+              render={({ field: { onChange, onBlur, value, name, ref } }) => (
+                <HandleBirthdate value={value} onChange={onChange} />
+              )}
+            />
+          </label>
+          {errors.dob ? <p className="error">{errors.dob.message}</p> : ''}
+          <label className="label-input">
+            <span>Display name : </span>
+            <input
+              placeholder="Display name"
+              {...register('displayName')}
+            ></input>
+          </label>
+          {errors.displayName ? (
+            <p className="error">{errors.displayName.message}</p>
+          ) : (
+            ''
+          )}
+          <label className="label-input">
+            <span>Phone number : </span>
+            <input placeholder="Phone" {...register('phone')}></input>
+          </label>
           {errors.phone ? <p className="error">{errors.phone.message}</p> : ''}
           <div className="form-btn">
             <button className="btn btn-primary" type="submit">

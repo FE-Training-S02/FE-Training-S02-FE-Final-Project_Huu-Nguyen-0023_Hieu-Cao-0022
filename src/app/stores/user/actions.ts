@@ -79,10 +79,18 @@ export const changePasswordRequest =
       const data = await changePassword(info);
       dispatch({ type: UserConstant.CHANGE_PASSWORD_SUCCESS, payload: data });
     } catch (error: any) {
-      dispatch({
-        type: UserConstant.CHANGE_PASSWORD_FAILURE,
-        payload: error.response.data.errors[0],
-      });
+      if (error.response.status === 401) {
+        localStorageOption.remove();
+        dispatch({
+          type: UserConstant.CHANGE_PASSWORD_FAILURE,
+          payload: error.response.statusText,
+        });
+      } else {
+        dispatch({
+          type: UserConstant.CHANGE_PASSWORD_FAILURE,
+          payload: error.response.data.errors[0],
+        });
+      }
     }
   };
 

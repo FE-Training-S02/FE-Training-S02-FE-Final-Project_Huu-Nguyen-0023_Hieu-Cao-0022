@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RootState } from 'app/stores/app-reducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import UserComment from './partials/UserComment';
-import { formatNumber } from 'app/shared/helper/helper-function';
+import {
+  convertFromStringToDate,
+  formatNumber,
+} from 'app/shared/helper/helper-function';
 import SkeletonDetailPost from '../home/partials/skeleton-component/SkeletonDetailPost';
 import {
   getUserInfoByIdRequest,
@@ -24,10 +27,10 @@ import {
   likePostRequest,
 } from 'app/stores/post/actions';
 import Footer from 'app/shared/components/Footer';
-import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
 const Detail = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id }: { id: string } = useParams();
   const schema = yup.object().shape({
     content: yup.string().required('Invalid comment'),
@@ -44,19 +47,28 @@ const Detail = () => {
   );
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [isMyself, setIsMyself] = useState<boolean>(false);
-  const { showLoading, handleShowLoading } = useContext(LoadingContext);
+  const [loading, setLoading] = useState<boolean>(false);
+  const { error }: any = useSelector((state: RootState) => state.post);
 
   useEffect(() => {
-    handleShowLoading(true);
+    if (error) {
+      history.push('/notFound');
+    }
+  }, [error]);
+
+  useEffect(() => {
+    setLoading(true);
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
-      setPost(res);
-      setBookmark(res.isInBookmark);
-      if (userCurrent?.email === res.user.email) {
-        setIsMyself(true);
-      } else {
-        setIsMyself(false);
+      if (res) {
+        setPost(res);
+        setBookmark(res.isInBookmark);
+        if (userCurrent?.email === res.user.email) {
+          setIsMyself(true);
+        } else {
+          setIsMyself(false);
+        }
+        setLoading(false);
       }
-      handleShowLoading(false);
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id, userCurrent]);
@@ -132,7 +144,7 @@ const Detail = () => {
 
   return (
     <>
-      {showLoading ? <SkeletonDetailPost /> : ''}
+      {loading ? <SkeletonDetailPost /> : ''}
       {post ? (
         <div className="detail-page">
           <div className="container">
@@ -223,6 +235,9 @@ const Detail = () => {
                             : post.user?.lastName}
                         </h3>
                       </Link>
+                      <p className="post-created-at">
+                        {convertFromStringToDate(post.createdAt)}
+                      </p>
                     </li>
                   </ul>
                   <ul className="interact-detail-list">

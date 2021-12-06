@@ -28,12 +28,12 @@ const Post = ({ post }: { post: postOptions }) => {
     <li key={id} className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
         <div className="card-img">
-          <Link to={`/detail/${id}`}>
+          <Link to={`/post/${id}`}>
             <img src={cover} alt="" className="post-image" />
           </Link>
         </div>
         <div className="card-body post-content">
-          <Link to={`/detail/${id}`}>
+          <Link to={`/post/${id}`}>
             <h2 className="card-title">{title}</h2>
           </Link>
           <ul className="card-tags">
@@ -41,11 +41,18 @@ const Post = ({ post }: { post: postOptions }) => {
               <li className="tag-item">{item}</li>
             ))}
           </ul>
-          <p className="post-description" dangerouslySetInnerHTML={{ __html: description }}></p>
+          <p
+            className="post-description"
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></p>
         </div>
         <div className="card-footer">
           <Link
-            to={userCurrent?.email === user.email ? '/wall/me' : `/wall/${user.id}`}
+            to={
+              userCurrent?.email === user.email
+                ? '/wall/me'
+                : `/wall/${user.id}`
+            }
             className="post-creator-info"
             onClick={handleToWallPage}
           >
