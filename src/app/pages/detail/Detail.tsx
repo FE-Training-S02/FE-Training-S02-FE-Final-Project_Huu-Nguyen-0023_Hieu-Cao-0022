@@ -166,7 +166,6 @@ const Detail = () => {
                       )}
                     </li>
                   )}
-
                   <li
                     className="interact-action-item"
                     onClick={handleAddBookmark}
