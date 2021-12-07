@@ -16,6 +16,7 @@ const ChangePassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const schema = yup.object().shape({
+    oldPassword: yup.string().required('Old password name is required'),
     newPassword: yup
       .string()
       .min(8, 'New password must be more than 8 characters')
@@ -26,6 +27,7 @@ const ChangePassword = () => {
     register,
     handleSubmit,
     setError,
+    clearErrors,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
@@ -56,6 +58,12 @@ const ChangePassword = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      clearErrors('repeatPassword');
+    }, 1500);
+  }, [errors]);
+
   const onSubmit = (data: PasswordOptions) => {
     if (data.newPassword === repeatPass) {
       dispatch(changePasswordRequest(data));
@@ -73,31 +81,45 @@ const ChangePassword = () => {
       <div className="container">
         <h2 className="change-pass-title">Change your password</h2>
         <form className="change-pass-form" onSubmit={handleSubmit(onSubmit)}>
-          <input
-            className="password"
-            type="password"
-            placeholder="Old password"
-            {...register('oldPassword')}
-          ></input>
-          <input
-            className="password"
-            type="password"
-            placeholder="New password"
-            {...register('newPassword')}
-          ></input>
+          <label className="label-input">
+            <span>Old password : </span>
+            <input
+              className="password"
+              type="password"
+              placeholder="Old password"
+              {...register('oldPassword')}
+            ></input>
+          </label>
+          {errors.oldPassword ? (
+            <span className="error">{errors.oldPassword.message}</span>
+          ) : (
+            ''
+          )}
+          <label className="label-input">
+            <span>New password : </span>
+            <input
+              className="password"
+              type="password"
+              placeholder="New password"
+              {...register('newPassword')}
+            ></input>
+          </label>
           {errors.newPassword ? (
             <span className="error">{errors.newPassword.message}</span>
           ) : (
             ''
           )}
-          <input
-            className="password"
-            type="password"
-            placeholder="Repeat new password"
-            onChange={(e: FormEvent<HTMLInputElement>) =>
-              setRepeatPass(e.currentTarget.value)
-            }
-          ></input>
+          <label className="label-input">
+            <span>Repeat password : </span>
+            <input
+              className="password"
+              type="password"
+              placeholder="Repeat new password"
+              onChange={(e: FormEvent<HTMLInputElement>) =>
+                setRepeatPass(e.currentTarget.value)
+              }
+            ></input>
+          </label>
           {errors.repeatPassword ? (
             <span className="error">{errors.repeatPassword.message}</span>
           ) : (

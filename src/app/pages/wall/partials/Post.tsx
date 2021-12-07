@@ -20,12 +20,12 @@ const PostItem = ({
 
   return (
     <li key={id} className="post-item">
-      <Link to={`/detail/${id}`} className="item-img">
+      <Link to={`/post/${id}`} className="item-img">
         <img src={cover} alt="" className="item-image" />
       </Link>
       <div className="item-detail">
         <div className="item-content">
-          <Link to={`/detail/${id}`} className="item-title">
+          <Link to={`/post/${id}`} className="item-title">
             <h2>{title}</h2>
           </Link>
           <div className="item-description">{description}</div>
@@ -57,7 +57,7 @@ const PostItem = ({
         <div className="sign-optional">
           <i className="far fa-ellipsis-h dot"></i>
           <ul className="list-option">
-            <Link to={`/post/edit/${id}`} className="option-item">
+            <Link to={`/post/${id}/edit`} className="option-item">
               <i className="fal fa-pencil-alt option-item-icon"></i> Edit
             </Link>
             <li

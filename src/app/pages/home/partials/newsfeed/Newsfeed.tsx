@@ -83,13 +83,7 @@ const Newsfeed = () => {
         )}
       </div>
       {loadMore && (
-        <div className="load-more-wrap" ref={loadMoreElementRef}>
-          <div className="load-more">
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-          </div>
-        </div>
+        <div className="load-more-wrap" ref={loadMoreElementRef}></div>
       )}
     </section>
   );

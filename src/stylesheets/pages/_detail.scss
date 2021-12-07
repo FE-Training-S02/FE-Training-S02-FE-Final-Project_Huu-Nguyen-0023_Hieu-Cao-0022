@@ -88,12 +88,14 @@
       margin-bottom: 1rem;
     }
     .author-info-list {
-      @include align-center;
-      height: 3rem;
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
       overflow: hidden;
-      margin: 1rem 0;
       .author-info-item {
-        @include align-center;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
         cursor: pointer;
         margin-right: 1rem;
         .author-avatar {

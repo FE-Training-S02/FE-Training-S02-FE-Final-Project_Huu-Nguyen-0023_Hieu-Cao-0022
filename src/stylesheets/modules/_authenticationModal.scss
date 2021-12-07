@@ -11,7 +11,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    // width: 600px;
     height: 95vh;
     background: map-get($color, 'white-snow');
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -32,6 +32,7 @@
       flex-direction: column;
       align-items: center;
       margin-top: 3rem;
+      width: 600px;
       .sign-in-title {
         font-size: map-get($font-size, 'xl');
         font-weight: 500;
@@ -87,6 +88,7 @@
       @include flex-center;
       flex-direction: column;
       margin-top: 5rem;
+      width: 600px;
       .sign-in-email-title {
         font-size: map-get($font-size, 'xl');
         font-weight: 500;
@@ -108,12 +110,14 @@
           width: 100%;
           border: none;
           outline: none;
-          border-bottom: 1px solid #333;
+          border: 1px solid #333;
+          border-radius: 99rem;
           padding: 0.6rem 1rem;
+          margin-top: .5rem;
           font-size: map-get($font-size, 'normal');
           text-align: center;
           &:focus {
-            border-bottom: 1px solid map-get($color, 'primary');
+            border: 1px solid map-get($color, 'primary');
             transition: 0.3s;
           }
         }
@@ -138,12 +142,13 @@
       }
     }
     .sign-up-email {
-      margin-top: 3rem;
+      margin-top: 1rem;
+      width: 600px;
       .sign-up-email-title {
         font-size: map-get($font-size, 'lg');
         font-weight: 600;
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         .blog-name {
           color: map-get($color, 'primary');
         }
@@ -154,21 +159,30 @@
         flex-direction: column;
         width: 80%;
         margin: 0 auto;
-        input {
-          padding: 0.6rem 1rem;
-          margin-bottom: 0.5rem;
-          border: none;
-          border-bottom: 1px solid #e5e5e5;
-          outline: none;
-          font-size: map-get($font-size, 'normal');
+        .label-input{
+          display: flex;
+          align-items: center;
           width: 100%;
-          &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+          margin-bottom: .5rem;
+          span{
+            color: map-get($color, 'black-midnight');
+            width: 12rem;
           }
-          &:focus {
-            border-bottom: 1px solid map-get($color, 'primary');
-            transition: 0.3s;
+          input {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-bottom: 1px solid #e5e5e5;
+            outline: none;
+            font-size: map-get($font-size, 'normal');
+            width: 100%;
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+            &:focus {
+              border-bottom: 1px solid map-get($color, 'primary');
+              transition: 0.3s;
+            }
           }
         }
         button {
@@ -177,7 +191,7 @@
         .select-gender {
           @include flex-center;
           margin: 0.5rem 0;
-          margin-left: 1rem;
+          margin-left: 9rem;
           label {
             @include flex-center;
             font-size: map-get($font-size, 'normal');
@@ -190,7 +204,7 @@
           color: red;
           font-size: map-get($font-size, 'sm');
           margin-top: -0.5rem;
-          margin-left: 1rem;
+          margin-left: 9rem;
         }
       }
       button {
@@ -229,8 +243,10 @@
       width: 90%;
       padding: 1rem;
       overflow-y: scroll;
+      .sign-in-modal,
       .sign-in-email,
       .sign-up-email {
+        width: 100%;
         .sign-in-email-title,
         .sign-up-email-title {
           margin-top: 1rem;

@@ -18,6 +18,7 @@ const Header = () => {
   }: { userCurrent: UserInfoOptions; showModalSignIn: boolean } = useSelector(
     (state: RootState) => state.userState
   );
+  const token = localStorage.getItem('USER_TOKEN');
 
   useEffect(() => {
     if (showModalSignIn) {
@@ -116,7 +117,7 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              {userCurrent ? (
+              {token ? (
                 <li className="list-item menu-item">
                   <Link to="/post/new" className="menu-link">
                     Write
@@ -125,7 +126,7 @@ const Header = () => {
               ) : (
                 ''
               )}
-              {userCurrent ? (
+              {token ? (
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
@@ -168,7 +169,7 @@ const Header = () => {
                       Write
                     </Link>
                   </li>
-                  {!userCurrent ? (
+                  {!token ? (
                     <li
                       className="list-item menu-mobile-item"
                       onClick={handleShowSignInModal}
@@ -197,6 +198,6 @@ const Header = () => {
       {showModalSignIn ? <AuthenticationModal /> : ''}
     </header>
   );
-};
+};;
 
 export default Header;

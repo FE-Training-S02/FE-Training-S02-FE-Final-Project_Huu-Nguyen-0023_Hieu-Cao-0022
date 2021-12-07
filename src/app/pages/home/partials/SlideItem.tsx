@@ -8,7 +8,7 @@ const SlideItem = ({ post, index }: { post: any; index: number }) => {
       className="post-item"
       style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
     >
-      <Link to={`/detail/${post.id}`} className="post-link">
+      <Link to={`/post/${post.id}`} className="post-link">
         <div className="row">
           <div className="post-image col-6 col-md-12">
             <img src={post.cover} alt=""></img>
@@ -24,7 +24,11 @@ const SlideItem = ({ post, index }: { post: any; index: number }) => {
                 className="author-avatar"
               ></img>
               <div className="author-content">
-                <p className="author-name">{post.user.displayName?post.user.displayName:post.user.lastName}</p>
+                <p className="author-name">
+                  {post.user.displayName
+                    ? post.user.displayName
+                    : post.user.lastName}
+                </p>
               </div>
             </div>
           </div>
